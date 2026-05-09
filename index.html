@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Caytone 项目导航</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: #1C1917; color: #E7E5E4;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+.container { max-width: 640px; margin: 0 auto; padding: 0 20px; }
+header {
+  padding: 60px 0 40px;
+  text-align: center;
+  border-bottom: 1px solid #3F3A36;
+}
+header h1 {
+  font-size: 24px; font-weight: 700; color: #FAFAF9;
+  font-family: 'Times New Roman', 'SimSun', '宋体', serif;
+  letter-spacing: -0.02em;
+}
+header p { color: #A8A29E; font-size: 13px; margin-top: 8px; line-height: 1.6; }
+main { padding: 32px 0 60px; }
+.project-list { display: flex; flex-direction: column; gap: 16px; }
+.project-card {
+  display: flex; align-items: center; gap: 16px;
+  background: #292524; border: 1px solid #3F3A36;
+  border-radius: 12px; padding: 20px;
+  text-decoration: none; color: inherit;
+  transition: all .2s;
+}
+.project-card:hover {
+  background: #3F3A36; border-color: #57534E;
+  transform: translateY(-2px);
+}
+.project-icon {
+  width: 48px; height: 48px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; flex-shrink: 0;
+}
+.project-info { flex: 1; min-width: 0; }
+.project-name { font-size: 15px; font-weight: 600; color: #FAFAF9; }
+.project-desc { font-size: 12px; color: #A8A29E; margin-top: 2px; }
+.project-meta { font-size: 11px; color: #78716C; margin-top: 4px; }
+.project-arrow { font-size: 18px; color: #78716C; flex-shrink: 0; transition: color .2s; }
+.project-card:hover .project-arrow { color: #D97149; }
+
+.tag-new {
+  display: inline-block; font-size: 10px;
+  background: #3D2A22; color: #D97149;
+  padding: 1px 6px; border-radius: 4px;
+  margin-left: 6px; font-weight: 500;
+}
+
+footer {
+  text-align: center; padding: 32px 0;
+  border-top: 1px solid #3F3A36; color: #78716C;
+  font-size: 12px; line-height: 1.6;
+}
+footer a { color: #D97149; text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+
+@media (max-width: 480px) {
+  header { padding: 40px 0 28px; }
+  header h1 { font-size: 20px; }
+  .project-card { padding: 16px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>⚡ 项目导航</h1>
+    <p>Caytone 部署的各类小工具<br>点击卡片直达</p>
+  </header>
+  <main>
+    <div class="project-list" id="projects">
+      <!-- 项目卡片由 JS 动态渲染 -->
+    </div>
+  </main>
+  <footer>
+    <a href="https://github.com/Mr-Chatwin">GitHub</a> · 更多项目陆续添加中
+  </footer>
+</div>
+<script>
+const projects = [
+  {
+    icon: "📊",
+    name: "CFTC 持仓报告",
+    desc: "每周 CFTC 持仓数据 + AI 宏观分析",
+    meta: "html · 自动更新",
+    url: "cft.report/"
+  },
+  {
+    icon: "💰",
+    name: "基金持仓追踪",
+    desc: "各主动基金持仓分析 & 基金经理对比",
+    meta: "vue · 自动更新",
+    url: "fund-tracker/"
+  },
+  // ---- 预留位，后续项目直接添加 ---- //
+  // {
+  //   icon: "",
+  //   name: "新项目",
+  //   desc: "",
+  //   meta: "",
+  //   url: "..."
+  // }
+];
+
+const container = document.getElementById('projects');
+projects.forEach(p => {
+  const a = document.createElement('a');
+  a.className = 'project-card';
+  a.href = p.url;
+  a.innerHTML = `
+    <div class="project-icon" style="background:var(--${p.icon === '📊' ? 'bg-white' : 'accent-light'},#292524)">${p.icon}</div>
+    <div class="project-info">
+      <div class="project-name">${p.name}</div>
+      <div class="project-desc">${p.desc}</div>
+      <div class="project-meta">${p.meta}</div>
+    </div>
+    <div class="project-arrow">→</div>
+  `;
+  container.appendChild(a);
+});
+</script>
+</body>
+</html>
